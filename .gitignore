@@ -124,3 +124,6 @@ dmypy.json
 
 #vscode
 .vscode
+
+#specific file
+db_test.py
