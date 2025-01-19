@@ -1,6 +1,5 @@
 from sqlalchemy import create_engine
 
-
 class DBConnectionHandler:
     def __init__(self):
         self.__connection_string = 'postgresql://postgres:rootpassword@localhost:5432/rocketseat_python'
