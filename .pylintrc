@@ -13,3 +13,6 @@ disable=
 
 [FORMAT]
 max-line-length=150
+
+[DESIGN]
+min-public-methods=0
