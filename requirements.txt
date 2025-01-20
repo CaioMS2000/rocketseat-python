@@ -3,3 +3,4 @@ sqlalchemy
 pytest
 pylint
 mock-alchemy
+pytest-mock
