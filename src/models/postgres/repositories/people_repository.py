@@ -1,8 +1,9 @@
 from sqlalchemy.orm.exc import NoResultFound
 from src.models.postgres.entities.people import People
 from src.models.postgres.entities.pets import Pets
+from src.models.postgres.interfaces.people_repository import PeopleRepositoryInterface
 
-class PeopleRepository:
+class PeopleRepository(PeopleRepositoryInterface):
     def __init__(self, connection):
         self.__connection = connection
     
