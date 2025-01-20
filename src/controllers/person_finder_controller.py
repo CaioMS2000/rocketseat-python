@@ -1,9 +1,10 @@
 from typing import Dict
+from src.controllers.interfaces.person_finder_controller import PersonFinderControllerInterface
 from src.models.postgres.entities.people import People
 from src.models.postgres.interfaces.people_repository import PeopleRepositoryInterface
 
 
-class PersonFinderController:
+class PersonFinderController(PersonFinderControllerInterface):
     def __init__(self, people_repository: PeopleRepositoryInterface):
         self.__people_repository = people_repository
     

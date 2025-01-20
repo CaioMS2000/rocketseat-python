@@ -1,9 +1,10 @@
 from typing import Dict, List
+from src.controllers.interfaces.pet_lister_controller import PetListerControllerInterface
 from src.models.postgres.entities.pets import Pets
 from src.models.postgres.interfaces.pets_repository import PetsRepositoryInterface
 
 
-class PetListerController:
+class PetListerController(PetListerControllerInterface):
     def __init__(self, pets_repository: PetsRepositoryInterface):
         self.__pets_repository = pets_repository
 
