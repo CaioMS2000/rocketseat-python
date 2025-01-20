@@ -9,7 +9,7 @@ disable=
       C0115, #missing-class-docstring
       C0116, #missing-function-docstring
       C0303, #trailing-whitespace
-
+      W0719, #broad-exception-raised
 
 [FORMAT]
 max-line-length=150
