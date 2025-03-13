@@ -1,0 +1,11 @@
+{
+    "reportUnannotatedClassAttribute": "hint",
+    "reportAny": "information",
+    "reportShadowedImports": "information",
+    "reportTypedDictNotRequiredAccess": "information",
+    "reportUnusedImport": "warning",
+    "reportUnusedCallResult": "none",
+    "exclude": [ ".venv"],
+    "venvPath": ".",
+    "venv": ".venv",
+}

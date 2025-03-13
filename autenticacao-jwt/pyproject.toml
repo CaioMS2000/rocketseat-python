@@ -1,0 +1,4 @@
+[tool.ruff]
+exclude = ["*.pyi", ".venv"]
+include = ["**/*.py"]
+line-length = 100

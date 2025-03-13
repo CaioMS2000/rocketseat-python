@@ -1,0 +1,7 @@
+ruff
+basedpyright
+Flask
+PyJWT
+python-dotenv
+types-Flask
+mysql-connector-python
