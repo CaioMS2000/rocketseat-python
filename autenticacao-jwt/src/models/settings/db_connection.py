@@ -1,23 +1,18 @@
 from typing import TypeAlias
-
-
 from mysql.connector.pooling import PooledMySQLConnection
 from mysql.connector.abstracts import MySQLConnectionAbstract
 import mysql.connector
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from src.configs.env import env
 
 ConnectionType: TypeAlias = PooledMySQLConnection | MySQLConnectionAbstract | None
 
 
 class __DBConnectionHandler:
     def __init__(self) -> None:
-        self._host = os.getenv("DB_HOST")
-        self._user = os.getenv("DB_USER")
-        self._password = os.getenv("DB_PASSWORD")
-        self._database = os.getenv("DB_NAME")
+        self._host = env.DB_HOST
+        self._user = env.DB_USER
+        self._password = env.DB_PASSWORD
+        self._database = env.DB_NAME
         self._connection = None
 
     def connect(self):

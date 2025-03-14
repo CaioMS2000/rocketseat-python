@@ -6,3 +6,4 @@ python-dotenv
 types-Flask
 mysql-connector-python
 bcrypt
+pydantic_settings
