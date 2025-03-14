@@ -1,9 +1,13 @@
-rm -rf **/__pycache__
+echo "Removing __pycache__ directories..."
+find . -type d -name "__pycache__" -exec rm -rf {} +
 
+echo "Adding __init__.py files..."
 python add_init.py
 
+echo "Formatting code..."
 ruff format src/
 
-sleep 1
+echo "Final cleanup..."
+find . -type d -name "__pycache__" -exec rm -rf {} +
 
-rm -rf **/__pycache__
+echo "Done!"
