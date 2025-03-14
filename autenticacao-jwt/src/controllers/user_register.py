@@ -8,7 +8,7 @@ class UserRegister(IUserRegister):
         self._user_repository = user_repository
         self.__password_handler = PasswordHandler()
 
-    def registry(self, username: str, password: str):
+    def registry(self, username: str, password: str) -> dict:
         user = self._user_repository.find_by_username(username)
 
         if user:
