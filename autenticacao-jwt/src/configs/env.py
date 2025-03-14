@@ -5,7 +5,7 @@ load_dotenv(override=True)
 
 
 class Settings(BaseSettings):
-    JWT_SECRET: str
+    JWT_SECRET_KEY: str
     DB_HOST: str
     DB_USER: str
     DB_PASSWORD: str

@@ -13,57 +13,71 @@ class MySQLUserRepository(UserRepository):
 
         self._connection = connection
 
-    def create(self, username: str, password: str, balance: float = 0.0):
+    def create(self, username: str, password: str, balance: float = 0.0) -> dict:
+        cursor = self._connection.cursor(dictionary=True)
+
         try:
-            cursor = self._connection.cursor(dictionary=True)
             sql = "INSERT INTO users (username, password, balance) VALUES (%s, %s, %s)"
+
             cursor.execute(sql, (username, password, balance))
             self._connection.commit()
 
-            # Return the created user
-            return self.find_by_id(cast(int, cursor.lastrowid))
         except Error as e:
             print(f"Error creating user: {e}")
-            return None
         finally:
             cursor.close()
 
-    def find_by_id(self, id: int):
+        user = self.find_by_id(cast(int, cursor.lastrowid))
+
+        if user is None:
+            raise Exception("User not found")
+
+        # Return the created user
+        return user
+
+    def find_by_id(self, id: int) -> dict | None:
+        cursor = self._connection.cursor(dictionary=True)
+
         try:
-            cursor = self._connection.cursor(dictionary=True)
-            sql = "SELECT id, username, balance, created_at FROM users WHERE id = %s"
+            sql = "SELECT id, username, balance FROM users WHERE id = %s"
             cursor.execute(sql, (id,))
-            return cursor.fetchone()
         except Error as e:
             print(f"Error finding user: {e}")
             return None
-        finally:
-            cursor.close()
 
-    def find_by_username(self, username: str):
+        res = cursor.fetchone()
+        cursor.close()
+
+        return res  # pyright: ignore[reportReturnType]
+
+    def find_by_username(self, username: str) -> dict | None:
+        cursor = self._connection.cursor(dictionary=True)
+
         try:
-            cursor = self._connection.cursor(dictionary=True)
-            sql = (
-                "SELECT id, username, password, balance, created_at FROM users WHERE username = %s"
-            )
+            sql = "SELECT id, username, password, balance FROM users WHERE username = %s"
             cursor.execute(sql, (username,))
-            return cursor.fetchone()
         except Error as e:
             print(f"Error finding user: {e}")
             return None
-        finally:
-            cursor.close()
 
-    def list_all(self):
+        res = cursor.fetchone()
+        cursor.close()
+
+        return res  # pyright: ignore[reportReturnType]
+
+    def list_all(self) -> list[dict]:
+        cursor = self._connection.cursor(dictionary=True)
+
         try:
-            cursor = self._connection.cursor(dictionary=True)
-            cursor.execute("SELECT id, username, balance, created_at FROM users")
-            return cursor.fetchall()
+            cursor.execute("SELECT id, username, balance FROM users")
         except Error as e:
             print(f"Error listing users: {e}")
             return []
-        finally:
-            cursor.close()
+
+        res = cursor.fetchall()
+        cursor.close()
+
+        return res  # pyright: ignore[reportReturnType]
 
     def update(
         self,

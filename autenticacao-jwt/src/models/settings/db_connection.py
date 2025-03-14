@@ -9,15 +9,30 @@ ConnectionType: TypeAlias = PooledMySQLConnection | MySQLConnectionAbstract | No
 
 class __DBConnectionHandler:
     def __init__(self) -> None:
-        self._host = env.DB_HOST
+        _host = env.DB_HOST.split(":")
+
+        self._host = _host[0]
+        self._port = int(_host[1])
         self._user = env.DB_USER
         self._password = env.DB_PASSWORD
         self._database = env.DB_NAME
         self._connection = None
 
-    def connect(self):
+    def connect(self, *, logs=False):
+        if logs:
+            print("Connecting to database using:")
+            print(f"host: {self._host}")
+            print(f"port: {self._port}")
+            print(f"user: {self._user}")
+            print(f"password: {self._password}")
+            print(f"database: {self._database}")
+
         self._connection = mysql.connector.connect(
-            host=self._host, user=self._user, password=self._password, database=self._database
+            host=self._host,
+            user=self._user,
+            password=self._password,
+            database=self._database,
+            port=self._port,
         )
 
         return self._connection
