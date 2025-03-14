@@ -1,9 +1,10 @@
 from src.drivers.jwt_handler import JWTHandler
 from src.drivers.password_handler import PasswordHandler
 from src.models.repositories.user_repository import UserRepository
+from .interfaces.balance_editor import IBalanceEditor
 
 
-class BalanceEditor:
+class BalanceEditor(IBalanceEditor):
     def __init__(self, user_repository: UserRepository) -> None:
         self._user_repository = user_repository
         self.__password_handler = PasswordHandler()

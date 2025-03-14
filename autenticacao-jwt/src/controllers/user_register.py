@@ -1,8 +1,9 @@
 from src.drivers.password_handler import PasswordHandler
 from src.models.repositories.user_repository import UserRepository
+from .interfaces.user_register import IUserRegister
 
 
-class UserRegister:
+class UserRegister(IUserRegister):
     def __init__(self, user_repository: UserRepository) -> None:
         self._user_repository = user_repository
         self.__password_handler = PasswordHandler()
@@ -20,8 +21,8 @@ class UserRegister:
     def __create_hash_password(self, password: str) -> str:
         return self.__password_handler.encrypt(password)
 
-    def __registry_new_user(self, username: str, hashed_password: str):
+    def __registry_new_user(self, username: str, hashed_password: str) -> dict:
         return self._user_repository.create(username, hashed_password)
 
-    def __format_response(self, username: str):
+    def __format_response(self, username: str) -> dict:
         return {"username": username, "count": 1, "type": "User"}
