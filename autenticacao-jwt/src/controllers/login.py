@@ -10,13 +10,13 @@ class Login(ILogin):
         self.__password_handler = PasswordHandler()
         self.__jwt_handler = JWTHandler()
 
-    def create(self, username: str, passwor: str):
+    def create(self, username: str, password: str):
         user = self._user_repository.find_by_username(username)
 
         if user is None:
             raise Exception("User does not exists")
 
-        if is_password_correct := self.__password_handler.compare(passwor, user["password"]):
+        if not self.__password_handler.compare(password, user["password"]):
             raise Exception("Invalid credentials")
 
         token = self.__jwt_handler.create({"user_id": user["id"]})
